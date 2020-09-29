@@ -7,8 +7,20 @@
 </head>
 <body>
     <h1>안녕하세요. class page 입니다.</h1>
-    <h2>{{mychat}}</h2>
-    <h2>너의 이름은 {{myname}}</h2>
+    {% comment %} <h2>{{mychat}}</h2>
+    <h2>너의 이름은 {{myname}}</h2> {% endcomment %}
+
+    {% for class in class_object %}
+        <div>
+            <a href="{% url 'detail' class.pk %}">
+                {{class.class_num}}
+                {{class.lecturer}}
+                {{class.students_name}}
+                <br/>
+            </a>
+        </div>
+    {% endfor %}
+
     <a href='/signup'>signup</a>
     <br/>
     <a href='/signin'>signin</a>
