@@ -55,8 +55,8 @@ def add(request, class_pk):
 
     if request.method == 'POST':
         Studnets.objects.create(
-            name=request.POST['name'],
             class_num=class_pk,
+            name=request.POST['name'],
             phon_num=request.POST['phon_num'],
             intro_text=request.POST['intro_text'],
             
@@ -68,3 +68,21 @@ def add(request, class_pk):
         'Class_obj':Class_obj
     }
     return render(request, 'add.html', context)
+
+def edit(request, students_name):
+    Students.objects.filter(name = 'students_name').update()
+
+    return render(request, 'edit.html')
+
+def students_detail(request, students_pk):
+    # students_detail_obj = Students.objects.filter(pk = students_pk)
+
+    # context = {
+    #     'students_detail_obj':students_detail_obj,
+    #     'students_pk':students_pk,
+    # }
+    students_obj = Students.objects.get(pk=students_pk)
+    
+
+
+    return render(request, 'students_detail.html', context)

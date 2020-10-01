@@ -27,6 +27,7 @@ urlpatterns = [
     path('detail/<int:class_pk>', views.detail, name='detail'),
     path('add/<int:class_pk>', views.add, name='add'),
     # path('logout/', views.logout, name='logout'),
-    # path('edit/', views.edit, name='edit'),
+    path('edit/<int:students_pk>', views.edit, name='edit'),
     # path('delete/', views.delete, name='delete'),
+    path('students_detail/<int:students_pk>', views.students_detail, name='students_detail'),
 ]
