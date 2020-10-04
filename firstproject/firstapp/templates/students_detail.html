@@ -6,16 +6,14 @@
     <title>Document</title>
 </head>
 <body>
-            <h1>edit</h1>
+            <h1>student_detail</h1>
+            {{student_obj.pk}}
 
-    {% comment %} <form action="{% url 'detail' students_detail_obj.pk %}" method="POST"> {% endcomment %}
-    {% csrf_token %}
-        <input name="name" placeholder="이름" />
+        <h2>내 이름은 : {{student_obj.name}}</h2>
+        <h2>내 폰 번호 : {{student_obj.phon_num}}</h2>
+        <h2>내 소개 : {{student_obj.intro_text}}</h2>
         <br/>
-        <input name="phon_num" placeholder="연락처" />
-        <br/>
-        <input name="intro_text" placeholder="자기소개" />
-        <button type="submit">수정하기</button>
-    </form>
+        <a href="{% url 'edit' student_obj.pk %}"><button type="submit">수정하기</button></a>
+    
 </body>
 </html>

@@ -9,7 +9,7 @@ class AiClass(models.Model):
 
 
 class Students(models.Model):
-    name = models.CharField(max_length=30)
     class_num = models.IntegerField()
+    name = models.CharField(max_length=30)
     phon_num = models.CharField(max_length=30)
     intro_text = models.TextField(max_length=300)

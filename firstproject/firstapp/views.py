@@ -1,88 +1,95 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import AiClass, Students
 
 # Create your views here.
+
+#auth
+def signup(request):
+    return render(request, 'signup.html')
+
+def login(request):
+    return render(request, 'login.html')
+
+def logout(request):
+    return redirect('home')
+
+
+
 def home(request):
     class_object = AiClass.objects.all()
     # class_object = AiClass.objects.filter(class_num=2)
     # context = {'class_object':class_object}
     return render(request, 'home.html', {'class_object':class_object})
 
-def signup(request):
-    return render(request, 'signup.html')
-
-def signin(request):
-
-    return render(request, 'signin.html')
-
-def result(request):
-    name = request.POST['username']
-
-    if name in students:
-        is_exist = True
-    else:
-        is_exist = False
-
-
-    return render(request, 'result.html', {'user_name':name, 'is_exist':is_exist})
-
-
-def textlen(request):
-    text = request.POST['usertext']
-    count = len(text)
-    # text_split = text.split()
-    # count = len(text_split)
-    # count = []
-    # for i in text_split:
-    #     count += len(i)
-
-    return render(request, 'textlen.html', {'textcount':count})
 
 def detail(request, class_pk):
-    # print(class_pk)
-
+    
     Class_obj = AiClass.objects.get(pk=class_pk)
-    Students_obj = Students.objects.filter(class_num=class_pk)
+    Students_q = Students.objects.filter(class_num=class_pk)
 
-    context = {'Class_obj':Class_obj, 'Students_obj':Students_obj, 'class_pk': class_pk}
+    context = {'Class_obj':Class_obj, 'Students_q':Students_q, 'class_pk': class_pk}
 
     return render(request, 'detail.html', context)
 
+
 def add(request, class_pk):
 
-    Class_obj = AiClass.objects.get(pk=class_pk)
-
     if request.method == 'POST':
-        Studnets.objects.create(
+        Students.objects.create(
             class_num=class_pk,
             name=request.POST['name'],
             phon_num=request.POST['phon_num'],
-            intro_text=request.POST['intro_text'],
-            
+            intro_text=request.POST['intro_text'],           
         )
 
         return redirect('detail', class_pk)
 
+    # Class_obj = AiClass.objects.get(pk=class_pk)
+
     context = {
-        'Class_obj':Class_obj
+        'class_pk':class_pk
     }
     return render(request, 'add.html', context)
 
-def edit(request, students_name):
-    Students.objects.filter(name = 'students_name').update()
+def deditt(request, students_pk):
 
-    return render(request, 'edit.html')
+    student = Students.objects.get(pk=students_pk)
+
+    context = {
+        'student':student
+    }
+    return render(request, 'edit.html', context)
+
+def edit(request, students_pk):
+
+    if request.method == "POST":
+        target_student = Students.objects.filter(pk=students_pk)
+        print(target_student)
+    
+        target_student.update(
+            name=request.POST['name'],
+            phon_num=request.POST['phon_num'],
+            intro_text=request.POST['intro_text'],
+        )
+
+        return redirect('students_detail', students_pk)
+
+    student = Students.objects.get(pk=students_pk)
+
+    context = {
+        'student':student
+    }
+
+    return render(request, 'edit.html', context)
 
 def students_detail(request, students_pk):
-    # students_detail_obj = Students.objects.filter(pk = students_pk)
 
-    # context = {
-    #     'students_detail_obj':students_detail_obj,
-    #     'students_pk':students_pk,
-    # }
-    students_obj = Students.objects.get(pk=students_pk)
+    student_obj = Students.objects.get(pk=students_pk)
     
+    context = {
+        'student_obj':student_obj
+    }
 
 
     return render(request, 'students_detail.html', context)

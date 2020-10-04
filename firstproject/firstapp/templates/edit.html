@@ -7,14 +7,15 @@
 </head>
 <body>
         <h1>edit</h1>
-    {% comment %} <form action="{% url 'detail' Class_obj.pk %}" method="POST">
-    {% csrf_token %}
-        <input name="name" placeholder="이름" />
+    {{student.pk}}
+    <form action="{% url 'edit' student.pk %}" method="POST">
+        {% csrf_token %}
+        <input value="{{student.name}}" name="name" placeholder="이름" />
         <br/>
-        <input name="phon_num" placeholder="연락처" />
+        <input value="{{student.phon_num}}" name="phon_num" placeholder="연락처" />
         <br/>
-        <input name="intro_text" placeholder="자기소개" />
+        <input value="{{student.intro_text}}" name="intro_text" placeholder="자기소개" />
         <button type="submit">수정하기</button>
-    </form> {% endcomment %}
+    </form>
 </body>
 </html>

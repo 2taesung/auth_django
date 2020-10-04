@@ -20,14 +20,16 @@ from firstapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('signup/', views.signup, name='signup'),
-    path('signin/', views.signin, name='signin'),
-    path('result/', views.result, name='result'),
-    path('textlen/', views.textlen, name='textlen'),
     path('detail/<int:class_pk>', views.detail, name='detail'),
+    
     path('add/<int:class_pk>', views.add, name='add'),
-    # path('logout/', views.logout, name='logout'),
+    
     path('edit/<int:students_pk>', views.edit, name='edit'),
-    # path('delete/', views.delete, name='delete'),
+    
     path('students_detail/<int:students_pk>', views.students_detail, name='students_detail'),
+
+    #auth
+    path('signup/', views.signup, name='signup'),
+    path('login/', views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
 ]

@@ -9,23 +9,19 @@
     <h1>detail</h1>
 
     {{class_pk}}
+    {{Students_q}}
+    {%for students in Students_q%}
+        <br/>
+        <a href="{% url 'students_detail' students.pk%}"> 
+        {{students.name}}
+        </a>
+        <br/>
+    {%endfor%}
+
+    <a href="{% url 'add' class_pk %}" method="POST"><button type="submit">add</button></a>
+    <br/> 
 
     
-    {% for students in Students_obj %}
-        
-        <li>
-            <a href="{% url 'students_detail' students.pk %}">
-            {{students.name}}
-            </a>
-        </li>
-        
-    {% endfor %} 
-
-    <a href="{% url 'add' Class_obj.pk %}"><button type="submit">add</button></a>
-
-    <br/>
-
-    {% comment %} <a href="{% url 'edit' Students_obj.pk %}"><button type="submit">edit</button></a> {% endcomment %}
     
 </body>
 </html>
